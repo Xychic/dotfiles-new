@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="2031.9945mm"
+   height="1143.0181mm"
+   viewBox="0 0 2031.9945 1143.0181"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="wallpaper-manjaro.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.24748737"
+     inkscape:cx="4225.1346"
+     inkscape:cy="2213.1088"
+     inkscape:document-units="mm"
+     inkscape:current-layer="svg8"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="2152"
+     inkscape:window-y="922"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Background"
+     transform="translate(1550.4583,783.93442)"
+     sodipodi:insensitive="true">
+    <path
+       style="fill:#32312f;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -173.49107,-783.93442 H -1550.4583 V 359.08329 h 645.19943 z"
+       id="path889" />
+    <path
+       style="fill:#1880b3;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -173.49107,-783.9344 H 481.53616 V 359.07659 l -1386.79501,0.007 z"
+       id="path891" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Circle"
+     transform="translate(1550.4583,783.93442)"
+     sodipodi:insensitive="true"
+     style="display:inline">
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.880524;stroke-opacity:1"
+       id="path886"
+       cx="-534.42828"
+       cy="-212.47925"
+       rx="162.07603"
+       ry="161.94913" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Logo"
+     style="display:inline"
+     transform="translate(1550.4583,783.93442)"
+     sodipodi:insensitive="true" />
+  <path
+     style="fill:#1880b3;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 939.5543,486.92781 h 98.9353 v 44.88468 h -54.05062 v 26.9308 h -44.79017 z"
+     id="path31" />
+  <rect
+     style="fill:#5e5f5e;stroke-width:0.264583"
+     id="rect33"
+     width="44.790115"
+     height="179.53867"
+     x="1047.5609"
+     y="487.02231" />
+  <rect
+     style="fill:#5e5f5e;stroke-width:0.264583"
+     id="rect35"
+     width="45.168152"
+     height="125.86607"
+     x="993.32141"
+     y="540.69495" />
+  <rect
+     style="fill:#1880b3;stroke-width:0.264583;fill-opacity:1"
+     id="rect37"
+     width="44.601158"
+     height="98.651794"
+     x="939.83783"
+     y="567.90918" />
+  <path
+     style="fill:#1880b3;fill-opacity:1;stroke-width:0.714286"
+     d="m 3754.3371,2281.1025 v -237.5 h 85 85 v 237.5 237.5 h -85 -85 z"
+     id="path39"
+     transform="scale(0.26458333)" />
+  <path
+     style="fill:#1880b3;fill-opacity:1;stroke-width:0.714286"
+     d="m 3959.3371,2179.674 v -338.9286 h 84.2858 84.2857 v 338.9286 338.9285 h -84.2857 -84.2858 z"
+     id="path41"
+     transform="scale(0.26458333)" />
+</svg>
