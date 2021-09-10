@@ -29,7 +29,8 @@ def init():
         "KaliLinux" : "sudo apt-get update && sudo apt-get upgrade -y"
     }
     subprocess.run(f"git submodule update --init --recursive".split(" "))
-    subprocess.run(f"{updaters[DISTRO]}".split(" "))
+    if DISTRO in updaters:
+        subprocess.run(f"{updaters[DISTRO]}".split(" "))
 
 
 def configureKDE(wallpaper):
@@ -119,6 +120,10 @@ def configureKDE(wallpaper):
         subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {' --group '.join(groups[:2])} --group Applets --group {ID} --key plugin --delete".split())
 
     subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {' --group '.join(groups)} --key AppletOrder {appletOrder}".split())
+
+    #Look and Feel
+    subprocess.run(f"lookandfeeltool -a org.kde.breezedark.desktop".split())
+
 
 def getWallpaper():
     wallpapersDict = defaultdict(lambda: "wallpaper.svg")
