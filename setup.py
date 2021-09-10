@@ -155,6 +155,9 @@ def configureKDE(wallpaper):
     #Look and Feel
     subprocess.run(f"lookandfeeltool -a org.kde.breezedark.desktop".split())
 
+    #Konsole Profile
+    subprocess.run(f"kwriteconfig5 --file konsolerc --group Desktop\sEntry --key DefaultProfile My-Profile.profile".split())
+
 
 def getWallpaper():
     wallpapersDict = defaultdict(lambda: "wallpaper.svg")
