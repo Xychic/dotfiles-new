@@ -23,6 +23,15 @@ PROGRAMS = [
     "zsh-autosuggestions",
 ]
 
+def init():
+    updaters = {
+        "ManjaroLinux" : "sudo pacman -Syu --noconfirm",
+        "KaliLinux" : "sudo apt-get update && sudo apt-get upgrade -y"
+    }
+    subprocess.run(f"git submodule update --init --recursive".split(" "))
+    subprocess.run(f"{updaters[DISTRO]}".split(" "))
+
+
 def configureKDE(wallpaper):
     # Wallpaper
     subprocess.run(f"kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Image {wallpaper}".split(" "))
@@ -50,10 +59,54 @@ def configureKDE(wallpaper):
 
     #Task Bar
     # subprocess.run(f"kwriteconfig5 --file kdeglobals --group General --key BrowserApplication google-chrome.desktop".split(" "))
-    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key formfactor 3".split(" "))
-    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key location 5".split(" "))
-    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key formfactor 3".split(" "))
-    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key location 5".split(" "))
+    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key formfactor 3".split(" "))
+    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key location 5".split(" "))
+    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key formfactor 3".split(" "))
+    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key location 5".split(" "))
+
+    lines = [line.strip() for line in open(f"{os.environ['HOME']}/.config/plasma-org.kde.plasma.desktop-appletsrc")]
+
+    ## Pinned
+    lineNum = 0
+    for i, line in enumerate(lines):
+        if line.startswith("launchers="):
+            lineNum = i
+            break
+    while not lines[lineNum].startswith("["):
+        lineNum -= 1
+    data = " --group ".join(lines[lineNum][1:-1].split("]["))
+    
+    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {data} --key launchers applications:google-chrome.desktop,applications:visual-studio-code.desktop,applications:org.kde.dolphin.desktop".split(" "))
+
+    ## To Remove
+    removeID = []
+    removeList = ["plugin=org.kde.plasma.pager", "plugin=org.kde.plasma.showdesktop","plugin=org.kde.plasma.trash"]
+
+    for i, line in enumerate(lines):
+        if line in removeList:
+            lineNum = i
+
+            while not lines[lineNum].startswith("[Containments]"):
+                lineNum -= 1
+            removeID.append(lines[lineNum][1:-1].split("][")[-1])
+            removeList.remove(line)
+            if not removeList:
+                break
+
+    for i, line in enumerate(lines):
+        if line.startswith("AppletOrder="):
+            appletOrder = line.split("=")[1]
+            lineNum = i
+            break
+
+    for ID in removeID:
+        appletOrder = appletOrder.replace(ID, "")
+        appletOrder = appletOrder.replace(";;", ";")
+
+    while not lines[lineNum].startswith("["):
+        lineNum -= 1
+    data = " --group ".join(lines[lineNum][1:-1].split("]["))
+    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {data} --key AppletOrder {appletOrder}".split(" "))
 
 def getWallpaper():
     wallpapersDict = defaultdict(lambda: "wallpaper.svg")
@@ -111,7 +164,6 @@ def copyDirs(toCopy):
         subprocess.run(f"cp -rfv {src} {dst}".split(" "))
 
 def main():
-    subprocess.run(f"git submodule update --init --recursive".split(" "))
     runSpecifics()
     configureKDE(getWallpaper())
     installPrograms(PROGRAMS)
