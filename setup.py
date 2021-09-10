@@ -58,13 +58,22 @@ def configureKDE(wallpaper):
     subprocess.run(f"kwriteconfig5 --file kglobalshortcutsrc --group kwin --key ShowDesktopGrid Meta+Tab,Ctrl+F8,Show Desktop Grid".split(" "))
 
     #Task Bar
-    # subprocess.run(f"kwriteconfig5 --file kdeglobals --group General --key BrowserApplication google-chrome.desktop".split(" "))
-    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key formfactor 3".split(" "))
-    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key location 5".split(" "))
-    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key formfactor 3".split(" "))
-    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key location 5".split(" "))
-
     lines = [line.strip() for line in open(f"{os.environ['HOME']}/.config/plasma-org.kde.plasma.desktop-appletsrc")]
+
+    locationsList = ["plugin=org.kde.panel","plugin=org.kde.plasma.private.systemtray"]
+    lineNum = 0
+    for i, line in enumerate(lines):
+        if line in locationsList:
+            lineNum = i
+            while not lines[lineNum].startswith("["):
+                lineNum -= 1
+            data = " --group ".join(lines[lineNum][1:-1].split("]["))
+            subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {data} --key formfactor 3".split())
+            subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {data} --key location 5".split())
+            
+            locationsList.remove(line)
+            if not locationsList:
+                break
 
     ## Pinned
     lineNum = 0
@@ -167,6 +176,7 @@ def copyDirs(toCopy):
         subprocess.run(f"cp -rfv {src} {dst}".split(" "))
 
 def main():
+    init()
     runSpecifics()
     configureKDE(getWallpaper())
     installPrograms(PROGRAMS)
