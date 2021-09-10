@@ -259,3 +259,4 @@ SAVEHIST=10000
 setopt SHARE_HISTORY
 
 [ -f ~/.resh/shellrc ] && source ~/.resh/shellrc
+[ -f ~/.zsh/plugins/git-prompt.zsh/git-prompt.zsh ] && source ~/.zsh/plugins/git-prompt.zsh/git-prompt.zsh
