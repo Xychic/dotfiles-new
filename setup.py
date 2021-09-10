@@ -7,9 +7,11 @@ import requests
 from collections import defaultdict
 from getpass import getuser
 
+
+HOME = os.path.expanduser("~")
 DISTRO = subprocess.check_output(["lsb_release", "-is"]).decode('ascii').strip()
 TO_COPY = [
-    (f"{sys.path[0]}/home/.", f"{os.environ['HOME']}"),
+    (f"{sys.path[0]}/home/.", f"{HOME}"),
 ]
 PROGRAMS = [
     "wmctrl",
@@ -88,7 +90,7 @@ def configureKDE(wallpaper):
     subprocess.run(f"kwriteconfig5 --file kglobalshortcutsrc --group kwin --key ShowDesktopGrid Meta+Tab,Ctrl+F8,Show Desktop Grid".split(" "))
 
     #Task Bar
-    lines = [line.strip() for line in open(f"{os.environ['HOME']}/.config/plasma-org.kde.plasma.desktop-appletsrc")]
+    lines = [line.strip() for line in open(f"{HOME}/.config/plasma-org.kde.plasma.desktop-appletsrc")]
 
     locationsList = ["plugin=org.kde.panel","plugin=org.kde.plasma.private.systemtray"]
     lineNum = 0
@@ -209,17 +211,17 @@ def runCommands():
                 subprocess.run(f"curl -o {sys.path[0]}/cascadia/cascadia.zip -L https://github.com/{line}".split())
                 break
         subprocess.run(f"unzip -o cascadia.zip".split(), cwd=f"{sys.path[0]}/cascadia")
-        os.makedirs(f"{os.environ['HOME']}/.local/share/fonts/Cascadia", exist_ok=True)
+        os.makedirs(f"{HOME}/.local/share/fonts/Cascadia", exist_ok=True)
         for root, dirs, files in os.walk(f"{sys.path[0]}/cascadia"):
             for file in files:
                 if file.endswith(".ttf"):
-                    subprocess.run(f"cp -fv {root}/{file} {os.environ['HOME']}/.local/share/fonts/Cascadia/{file}".split())
+                    subprocess.run(f"cp -fv {root}/{file} {HOME}/.local/share/fonts/Cascadia/{file}".split())
         subprocess.run(f"fc-cache -f -v".split(), cwd=f"{sys.path[0]}")
         subprocess.run(f"rm -rf cascadia".split(), cwd=f"{sys.path[0]}")
 
     subprocess.run(f"sudo chsh {getuser()} -s /usr/bin/zsh".split(" "))
-    subprocess.run(f"chmod +x {os.environ['HOME']}/.config/autostart/setvd1.desktop".split(" "))
-    subprocess.run(f"rm -f {os.environ['HOME']}/.config/autostart/org.kde.yakuake.desktop".split(" "))
+    subprocess.run(f"chmod +x {HOME}/.config/autostart/setvd1.desktop".split(" "))
+    subprocess.run(f"rm -f {HOME}/.config/autostart/org.kde.yakuake.desktop".split(" "))
 
     for ext in CODE_EXTENSIONS:
         subprocess.run(f"code --install-extension {ext}".split(" "))
