@@ -23,6 +23,33 @@ PROGRAMS = [
     "zsh-autosuggestions",
 ]
 
+CODE_EXTENSIONS = [
+    "austin.code-gnu-global", 
+    "DavidAnson.vscode-markdownlint", 
+    "esbenp.prettier-vscode", 
+    "formulahendry.code-runner", 
+    "haskell.haskell", 
+    "hoovercj.haskell-linter", 
+    "justusadam.language-haskell", 
+    "lunaryorn.hlint", 
+    "mads-hartmann.bash-ide-vscode", 
+    "ms-python.python", 
+    "ms-toolsai.jupyter", 
+    "ms-vscode.cpptools", 
+    "naco-siren.gradle-language", 
+    "pejmannikram.vscode-auto-scroll", 
+    "redhat.java", 
+    "richardwillis.vscode-gradle", 
+    "richardwillis.vscode-gradle-extension-pack", 
+    "VisualStudioExptTeam.vscodeintellicode", 
+    "vsciot-vscode.vscode-arduino", 
+    "vscjava.vscode-java-debug", 
+    "vscjava.vscode-java-dependency", 
+    "vscjava.vscode-java-pack", 
+    "vscjava.vscode-java-test", 
+    "vscjava.vscode-maven",
+]
+
 def init():
     updaters = {
         "ManjaroLinux" : "sudo pacman -Syu --noconfirm",
@@ -174,6 +201,9 @@ def runCommands():
     subprocess.run(f"sudo chsh {getuser()} -s /usr/bin/zsh".split(" "))
     subprocess.run(f"chmod +x {os.environ['HOME']}/.config/autostart/setvd1.desktop".split(" "))
     subprocess.run(f"rm -f {os.environ['HOME']}/.config/autostart/org.kde.yakuake.desktop".split(" "))
+
+    for ext in CODE_EXTENSIONS:
+        subprocess.run(f"code --install-extension {ext}".split(" "))
     
 def copyDirs(toCopy):
     for src, dst in toCopy:

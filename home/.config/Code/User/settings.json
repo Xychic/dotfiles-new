@@ -1,0 +1,35 @@
+{
+    "window.zoomLevel": 0,
+    "editor.fontFamily": "'Cascadia Mono'",
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "java.home": "/usr/lib/jvm/java-11-openjdk",
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+ 
+        "haskell"   :   "cd $dir && stack runghc $fileName",
+        "python"    :   "cd $dir && python -u $fileName",
+        "c"         :   "cd $dir && gcc $fileName -lm -o $fileNameWithoutExt && ./$fileNameWithoutExt",
+        "java"      :   "cd $dir && javac $fileName -d ./bin/ && java -cp ./bin/ $fileNameWithoutExt"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "java.configuration.checkProjectSettingsExclusions": false,
+    "python.languageServer": "Microsoft",
+    "java.configuration.runtimes": [
+ 
+        {
+            "name": "JavaSE-11",
+            "path": "/usr/lib/jvm/java-11-openjdk",
+            "default": true
+        }    
+    
+    ],
+    "explorer.confirmDelete": false,
+    "editor.detectIndentation": false,
+    "code-runner.clearPreviousOutput": true
+}
