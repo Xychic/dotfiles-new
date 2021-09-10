@@ -3,6 +3,7 @@ import os
 import sys
 import subprocess
 import uuid
+import requests
 from collections import defaultdict
 from getpass import getuser
 
@@ -18,6 +19,7 @@ PROGRAMS = [
     "ncdu",
     "neofetch",
     "python2",
+    "unzip",
     "zsh", 
     "zsh-syntax-highlighting", 
     "zsh-autosuggestions",
@@ -179,7 +181,7 @@ def installPrograms(programNames):
 
 def archSpecifics():
     subprocess.run("sudo pacman -S --noconfirm --needed base-devel git pkgfile".split(" "))
-    subprocess.run("git clone https://aur.archlinux.org/pikaur.git".split(" "), cwd=f"{sys.path[0]}")
+    subprocess.run("git clone https://aur.archlinux.org/pikaur.git".split(" "), cwd=sys.path[0])
     subprocess.run("makepkg -fsri --noconfirm".split(" "), cwd=f"{sys.path[0]}/pikaur")
     subprocess.run("pikaur -S --noconfirm --needed visual-studio-code-bin google-chrome".split(" "), cwd=f"{sys.path[0]}/pikaur")
 
@@ -198,12 +200,31 @@ def runSpecifics():
         specifics[DISTRO]()
 
 def runCommands():
+    def installCascadia():
+        url = requests.get("https://github.com/microsoft/cascadia-code/releases/latest").url
+        for line in requests.get(url).text.split("\n"):
+            if "/microsoft/cascadia-code/releases/download/" in line:
+                line = line.split("\"")[1]
+                os.makedirs(f"{sys.path[0]}/cascadia", exist_ok=True)
+                subprocess.run(f"curl -o {sys.path[0]}/cascadia/cascadia.zip -L https://github.com/{line}".split())
+                break
+        subprocess.run(f"unzip -o cascadia.zip".split(), cwd=f"{sys.path[0]}/cascadia")
+        os.makedirs(f"{os.environ['HOME']}/.local/share/fonts/Cascadia", exist_ok=True)
+        for root, dirs, files in os.walk(f"{sys.path[0]}/cascadia"):
+            for file in files:
+                if file.endswith(".ttf"):
+                    subprocess.run(f"cp -fv {root}/{file} {os.environ['HOME']}/.local/share/fonts/Cascadia/{file}".split())
+        subprocess.run(f"fc-cache -f -v".split(), cwd=f"{sys.path[0]}")
+        subprocess.run(f"rm -rf cascadia".split(), cwd=f"{sys.path[0]}")
+
     subprocess.run(f"sudo chsh {getuser()} -s /usr/bin/zsh".split(" "))
     subprocess.run(f"chmod +x {os.environ['HOME']}/.config/autostart/setvd1.desktop".split(" "))
     subprocess.run(f"rm -f {os.environ['HOME']}/.config/autostart/org.kde.yakuake.desktop".split(" "))
 
     for ext in CODE_EXTENSIONS:
         subprocess.run(f"code --install-extension {ext}".split(" "))
+    
+    installCascadia()
     
 def copyDirs(toCopy):
     for src, dst in toCopy:

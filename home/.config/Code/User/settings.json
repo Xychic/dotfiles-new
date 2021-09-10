@@ -1,6 +1,6 @@
 {
     "window.zoomLevel": 0,
-    "editor.fontFamily": "'Cascadia Mono'",
+    "editor.fontFamily": "'Cascadia Mono',monospace",
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
     "editor.suggestSelection": "first",
