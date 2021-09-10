@@ -13,6 +13,7 @@
 - Set icons on taskbar
 - Install VSCode extensions
 - Set VSCode settings
+- Set konsole profile
 - Install Programs
     - wmctrl
     - vim
