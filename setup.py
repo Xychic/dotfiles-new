@@ -153,11 +153,10 @@ def configureKDE(wallpaper):
     subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {' --group '.join(groups)} --key AppletOrder {appletOrder}".split())
 
     #Look and Feel
-    subprocess.run(f"lookandfeeltool -a org.kde.breezedark.desktop".split())
+    subprocess.run("lookandfeeltool -a org.kde.breezedark.desktop".split())
 
     #Konsole Profile
-    # subprocess.run(f"kwriteconfig5 --file konsolerc --group Desktop\sEntry --key DefaultProfile My-Profile.profile".split())
-    os.system(f"kwriteconfig5 --file konsolerc --group \"Desktop Entry\" --key DefaultProfile My-Profile.profile")
+    subprocess.run(["kwriteconfig5", "--file", "konsolerc", "--group", "Desktop Entry", "--key", "DefaultProfile", "My-Profile.profile"])
 
 
 def getWallpaper():
