@@ -86,7 +86,7 @@ def configureKDE(wallpaper):
         if line in removeList:
             lineNum = i
 
-            while not lines[lineNum].startswith("[Containments]"):
+            while not lines[lineNum].startswith("["):
                 lineNum -= 1
             removeID.append(lines[lineNum][1:-1].split("][")[-1])
             removeList.remove(line)
@@ -99,14 +99,17 @@ def configureKDE(wallpaper):
             lineNum = i
             break
 
+    while not lines[lineNum].startswith("["):
+        lineNum -= 1
+    
+    groups = lines[lineNum][1:-1].split("][")
     for ID in removeID:
         appletOrder = appletOrder.replace(ID, "")
         appletOrder = appletOrder.replace(";;", ";")
+        subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {' --group '.join(groups[:2])} --group Applets --group {ID} --key immutability --delete".split())
+        subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {' --group '.join(groups[:2])} --group Applets --group {ID} --key plugin --delete".split())
 
-    while not lines[lineNum].startswith("["):
-        lineNum -= 1
-    data = " --group ".join(lines[lineNum][1:-1].split("]["))
-    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {data} --key AppletOrder {appletOrder}".split(" "))
+    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {' --group '.join(groups)} --key AppletOrder {appletOrder}".split())
 
 def getWallpaper():
     wallpapersDict = defaultdict(lambda: "wallpaper.svg")
