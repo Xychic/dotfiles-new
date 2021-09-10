@@ -8,6 +8,9 @@
 - Disable splash screen
 - Install zsh 
 - Set zshrc
+- Set look and feel
+- Set location for taskbar
+- Set icons on taskbar
 - Install Programs
     - wmctrl
     - vim
@@ -19,4 +22,5 @@
     - pyhton2
 
 ## To Do
-
+- VSCode extensions
+- VSCode settings
