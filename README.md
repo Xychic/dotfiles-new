@@ -11,6 +11,8 @@
 - Set look and feel
 - Set location for taskbar
 - Set icons on taskbar
+- Install VSCode extensions
+- Set VSCode settings
 - Install Programs
     - wmctrl
     - vim
@@ -19,8 +21,7 @@
     - ncdu
     - neofetch
     - python-is-python3 (Debian only)
-    - pyhton2
+    - python2
+    - unzip
 
 ## To Do
-- VSCode extensions
-- VSCode settings
