@@ -34,41 +34,10 @@ alias ffplay="ffplay -hide_banner"
 alias ":q"="exit"
 alias sl=ls
 alias sensors="clear; sensors"
-alias syncnotes="python /mnt/data/Documents/Work/boostread.py -f /mnt/data/Documents/Work/UniNotes -r -q -p -R"
-alias test-syncnotes="python /mnt/data/Documents/Programming/Python/BoostnoteToMarkdown/boostread.py -f /mnt/data/Documents/Work/UniNotes -r -q -p -R"
 alias lolfetch="neofetch | lolcat -F 0.5"
 alias -g sd="~/ScratchArea"
 alias -g dl="~/Downloads"
 alias -g "..."="../.."
-alias monitor-on="xrandr --auto --output HDMI-A-0 --mode 2560x1440 --above eDP"
-alias monitor-off="xrandr --auto && xrandr --output HDMI-A-0 --off"
-alias code="code \`fzf -i\`"
-alias archLogo="echo \"\033[38;2;23;147;209m                   ▄
-                  ▟█▙
-                 ▟███▙
-                ▟█████▙
-               ▟███████▙
-              ▂▔▀▜██████▙
-             ▟██▅▂▝▜█████▙
-            ▟█████████████▙
-           ▟███████████████▙
-          ▟█████████████████▙
-         ▟███████████████████▙
-        ▟█████████▛▀▀▜████████▙
-       ▟████████▛      ▜███████▙
-      ▟█████████        ████████▙
-     ▟██████████        █████▆▅▄▃▂
-    ▟██████████▛        ▜█████████▙
-   ▟██████▀▀▀              ▀▀██████▙
-  ▟███▀▘                       ▝▀███▙
- ▟▛▀                               ▀▜▙\""
-
-
-alias test="echo test"
-alias colourScroll="yes \"\$(seq 231 -1 16)\" | while read i;do printf \"\\x1b[48;5;\${i}m\\n\";sleep .02;done"
-alias monitor-on="xrandr --auto --output HDMI-A-0 --mode 2560x1440 --right-of eDP"
-alias monitor-off="xrandr --auto && xrandr --output HDMI-A-0 --off"
-
 alias test="echo test"
 
 # Conditional Aliases

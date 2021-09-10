@@ -49,10 +49,11 @@ def configureKDE(wallpaper):
     subprocess.run(f"kwriteconfig5 --file kglobalshortcutsrc --group kwin --key ShowDesktopGrid Meta+Tab,Ctrl+F8,Show Desktop Grid".split(" "))
 
     #Task Bar
-    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key formfactor 3".split(" "))
-    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key location 5".split(" "))
-    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key formfactor 3".split(" "))
-    # subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key location 5".split(" "))
+    # subprocess.run(f"kwriteconfig5 --file kdeglobals --group General --key BrowserApplication google-chrome.desktop".split(" "))
+    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key formfactor 3".split(" "))
+    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --key location 5".split(" "))
+    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key formfactor 3".split(" "))
+    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 8 --key location 5".split(" "))
 
 def getWallpaper():
     wallpapersDict = defaultdict(lambda: "wallpaper.svg")
@@ -102,15 +103,15 @@ def runSpecifics():
 def runCommands():
     subprocess.run(f"sudo chsh {getuser()} -s /usr/bin/zsh".split(" "))
     subprocess.run(f"chmod +x {os.environ['HOME']}/.config/autostart/setvd1.desktop".split(" "))
+    subprocess.run(f"rm -f {os.environ['HOME']}/.config/autostart/org.kde.yakuake.desktop".split(" "))
     
 def copyDirs(toCopy):
     for src, dst in toCopy:
         os.makedirs(dst, exist_ok=True)
-        command = f"cp -rfv {src} {dst}"
-        print(command)
-        subprocess.run(command.split(" "))
+        subprocess.run(f"cp -rfv {src} {dst}".split(" "))
 
 def main():
+    subprocess.run(f"git submodule update --init --recursive".split(" "))
     runSpecifics()
     configureKDE(getWallpaper())
     installPrograms(PROGRAMS)
