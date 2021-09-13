@@ -65,23 +65,17 @@ def init():
 
 
 def configureKDE(wallpaper):
-    # Wallpaper
-    subprocess.run(f"kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Image {wallpaper}".split(" "))
-
-    # Lock Screen
-    subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 17 --group Wallpaper --group org.kde.image --group General --key Image {wallpaper}".split(" "))
-
     # Splash Screen
     subprocess.run(f"kwriteconfig5 --file ksplashrc --group KSplash --key Theme None".split(" "))
     subprocess.run(f"kwriteconfig5 --file ksplashrc --group KSplash --key Engine None".split(" "))
 
-    #Virtual Desktop
+    # Virtual Desktop
     for i in range(9):
         subprocess.run(f"kwriteconfig5 --file kwinrc --group Desktops --key Id_{i+1} {uuid.uuid4()}".split(" "))
     subprocess.run(f"kwriteconfig5 --file kwinrc --group Desktops --key Number 9".split(" "))
     subprocess.run(f"kwriteconfig5 --file kwinrc --group Desktops --key Rows 3".split(" "))
 
-    #Keyboard Shortcuts
+    # Keyboard Shortcuts
     subprocess.run(f"kwriteconfig5 --file kglobalshortcutsrc --group kwin --key Switch\sOne\sDesktop\sDown Meta+Ctrl+Down,Meta+Ctrl+Down,Switch One Desktop Down".split(" "))
     subprocess.run(f"kwriteconfig5 --file kglobalshortcutsrc --group kwin --key Switch\sOne\sDesktop\sUp Meta+Ctrl+Up,Meta+Ctrl+Up,Switch One Desktop Up".split(" "))
     subprocess.run(f"kwriteconfig5 --file kglobalshortcutsrc --group kwin --key Switch\sOne\sDesktop\sto\sthe\sLeft Meta+Ctrl+Left,Meta+Ctrl+Left,Switch One Desktop to the Left".split(" "))
@@ -89,9 +83,18 @@ def configureKDE(wallpaper):
     subprocess.run(f"kwriteconfig5 --file kglobalshortcutsrc --group kwin --key next\sactivity none,none,Walk through activities".split(" "))
     subprocess.run(f"kwriteconfig5 --file kglobalshortcutsrc --group kwin --key ShowDesktopGrid Meta+Tab,Ctrl+F8,Show Desktop Grid".split(" "))
 
-    #Task Bar
+    # Wallpaper
     lines = [line.strip() for line in open(f"{HOME}/.config/plasma-org.kde.plasma.desktop-appletsrc")]
+    for i, line in enumerate(lines):
+        if "Wallpaper" in line and "org.kde.image" in line:
+            data = " --group ".join(line[1:-1].split("]["))
+            subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {data} --key Image {wallpaper}".split(" "))
+            break
 
+    # Lock Screen
+    subprocess.run(f"kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Image {wallpaper}".split(" "))
+    
+    # Task Bar
     locationsList = ["plugin=org.kde.panel","plugin=org.kde.plasma.private.systemtray"]
     lineNum = 0
     for i, line in enumerate(lines):
@@ -152,10 +155,10 @@ def configureKDE(wallpaper):
 
     subprocess.run(f"kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group {' --group '.join(groups)} --key AppletOrder {appletOrder}".split())
 
-    #Look and Feel
+    # Look and Feel
     subprocess.run("lookandfeeltool -a org.kde.breezedark.desktop".split())
 
-    #Konsole Profile
+    # Konsole Profile
     subprocess.run(["kwriteconfig5", "--file", "konsolerc", "--group", "Desktop Entry", "--key", "DefaultProfile", "My-Profile.profile"])
 
 
