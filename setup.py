@@ -37,6 +37,7 @@ CODE_EXTENSIONS = [
     "justusadam.language-haskell", 
     "lunaryorn.hlint", 
     "mads-hartmann.bash-ide-vscode", 
+    "ms-python.vscode-pylance",
     "ms-python.python", 
     "ms-toolsai.jupyter", 
     "ms-vscode.cpptools", 
