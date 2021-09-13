@@ -58,6 +58,7 @@ CODE_EXTENSIONS = [
 def init():
     updaters = {
         "ManjaroLinux" : "sudo pacman -Syu --noconfirm",
+        "Arch" : "sudo pacman -Syu --noconfirm",
         "KaliLinux" : "sudo apt-get update && sudo apt-get upgrade -y"
     }
     subprocess.run(f"git submodule update --init --recursive".split(" "))
@@ -167,6 +168,7 @@ def getWallpaper():
     wallpapersDict = defaultdict(lambda: "wallpaper.svg")
     wallpapersDict.update({
         "ManjaroLinux" : "wallpaper-manjaro.svg",
+        "Arch" : "wallpaper-arch.svg",
         "KaliLinux" : "wallpaper-kali.svg"
     })
 
@@ -175,6 +177,7 @@ def getWallpaper():
 def installPrograms(programNames):
     installers = {
         "ManjaroLinux" : "sudo pacman -Sy --noconfirm --needed",
+        "Arch" : "sudo pacman -Sy --noconfirm --needed",
         "KaliLinux" : "sudo apt-get install -y"
     }
 
@@ -202,6 +205,7 @@ def debianSpecifics():
 def runSpecifics():
     specifics = {
         "ManjaroLinux" : archSpecifics,
+        "Arch" : archSpecifics,
         "KaliLinux" : debianSpecifics
     }
 
